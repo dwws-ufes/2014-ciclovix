@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="decorator.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de usuarios</ui:define>
+	<ui:define name="h1">Cadastro de usuario</ui:define>
+
+	<ui:define name="contents">
+		<h:form>
+			<p:panel header="Cadastro de Novo Usuário">				
+				<h:panelGrid id="grid" columns="2" cellpadding="5">
+					<h:outputLabel for="nome" value="Nome:" style="font-weight:bold"/>                    
+		            <p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" label="Nome"/>
+					
+					<h:outputLabel for="sobrenome" value="Sobrenome:" style="font-weight:bold"/>                    
+		            <p:inputText id="sobrenome" value="#{usuarioMB.usuario.sobrenome}" required="true" label="Sobrenome"/>
+
+					<h:outputLabel for="face" value="Facebook:" style="font-weight:bold"/>                    
+		            <p:inputText id="face" value="#{usuarioMB.usuario.contaFace}" required="true" label="Face"/>
+		            
+		            <h:outputLabel for="twitter" value="Twitter:" style="font-weight:bold"/>                    
+		            <p:inputText id="twitter" value="#{usuarioMB.usuario.contaTwitter}" required="true" label="Twitter"/>
+		            
+		            <h:outputLabel for="pass" value="Senha" style="font-weight:bold"/>                    
+		            <p:password id="pass" value="#{usuarioMB.usuario.password}" required="true" label="Password"/>
+		            
+				</h:panelGrid>
+				<h:commandButton action="#{usuarioMB.salvarUsuario}" value="salvar" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

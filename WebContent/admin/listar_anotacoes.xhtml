@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/decorator.xhtml">
+
+	<ui:define name="titulo">Cadastro de anotacoes</ui:define>
+	<ui:define name="h1">Lista de anotacoes</ui:define>
+
+	<ui:define name="contents">
+		<h:dataTable var="anotacao" value="#{anotacaoMB.listarAnotacoes}">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="categoria" />
+				</f:facet>
+				<h:outputText value="#{anotacao.categoria.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="nome" />
+				</f:facet>
+				<h:outputText value="#{anotacao.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="modificar" />
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{anotacaoMB.prepararAlterarAnotacao}"
+						value="modificar" />
+				</h:form>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="apagar" />
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{anotacaoMB.excluirAnotacao}"
+						value="apagar" />
+				</h:form>
+			</h:column>
+		</h:dataTable>
+		<br />
+		<h:form>
+			<h:commandLink value="nova anotacao"
+				action="#{anotacaoMB.prepararAdicionarAnotacao}" />
+			<br />
+		</h:form>
+	</ui:define>
+</ui:composition>

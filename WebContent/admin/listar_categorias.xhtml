@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/decorator.xhtml">
+
+	<ui:define name="titulo">Cadastro de categorias</ui:define>
+	<ui:define name="h1">Lista de categorias</ui:define>
+
+	<ui:define name="contents">
+		<h:dataTable var="categoria" value="#{categoriaMB.listarCategorias}">
+			<h:column>
+					<f:facet name="header">
+						<h:outputText value="nome" />
+					</f:facet>
+					<h:outputText value="#{categoria.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="tipo" />
+					</f:facet>
+					<h:outputText value="#{categoria.tipo}" />
+				</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="modificar" />
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{categoriaMB.prepararAlterarCategoria}"
+						value="modificar" />
+				</h:form>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="apagar" />
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{categoriaMB.excluirCategoria}"
+						value="apagar" />
+				</h:form>
+			</h:column>
+		</h:dataTable>
+		<br />
+		<h:form>
+			<h:commandLink value="novo categoria"
+				action="#{categoriaMB.prepararAdicionarCategoria}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

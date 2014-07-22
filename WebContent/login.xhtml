@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	<head>
+	<title>Login Page</title>
+	</head>
+	<body>
+		<f:view>
+			<h:form id="helloForm">
+				<Center>
+					<H2>Logon Page</H2>					
+					<table>
+						<tr>
+						<td>
+						<h:outputLabel for="input1">
+						<h:outputText id="nameLabel" value="User Name"/>
+						</h:outputLabel>
+						</td>
+						<td>
+						<h:inputText id="input1" value="#{auth.userName}" size="20"/>
+						</td>
+						</tr>
+						<tr>
+						<td>
+						<h:outputLabel for="input2">
+						<h:outputText id="passwordLabel" value="Password"/>
+						</h:outputLabel>
+						</td>
+						<td>
+						<h:inputSecret id="input2" value="#{auth.password}" size="20"/>
+						</td>
+						</tr>
+						<tr>
+						<td></td>
+						<td>
+						<h:commandButton id="login" action="#{auth.validate}" value="Login">
+						</h:commandButton>
+						<h:commandButton id="cadastrar" action="addUser" value="Cadastro">
+						</h:commandButton>
+						</td>
+						</tr>
+					</table>
+				</Center>
+			</h:form>
+		</f:view>
+	</body>
+</html>

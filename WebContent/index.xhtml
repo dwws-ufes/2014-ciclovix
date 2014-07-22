@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript"
+		src="http://maps.google.com/maps/api/js?sensor=true" />
+	<title>GMap</title>
+</h:head>
+<h:body>
+	<p:breadCrumb>
+		<p:menuitem value="home" url="#" />
+		<p:menuitem value="Adicionar Informação" url="addMarker.xhtml"
+			rendered="#{auth.logado}" />
+		<p:menuitem value="Contatos" url="#" rendered="true" />
+		<p:menuitem value="Base de dados" url="#{anotacaoMB.dumpAnotacoes()}" rendered="true" />
+		<p:menuitem value="Sair" url="#{userMB.invalidate()}"
+			rendered="#{auth.logado}" />
+		<p:menuitem value="Logar" url="login.xhtml"
+			rendered="#{auth.deslogado}" />
+	</p:breadCrumb>
+
+	<p:layout style="height:90%;">
+		<p:layoutUnit position="west" maxSize="200">
+
+			<h:outputText value="Bem vindo " rendered="#{auth.logado}"
+				style="font-weight:bold" />
+			<h:outputText value="#{auth.pessoa.nome}" rendered="#{auth.logado}"
+				style="font-weight:bold" />
+			<br />
+			<br />
+
+			<h:form>
+				<h:outputText value="Filtre por Categoria:" style="font-weight:bold" />
+
+				<h:panelGrid columns="2" style="margin-bottom:10px;" cellpadding="5">
+
+					<ui:repeat var="item" value="#{anotacaoMB.items}">
+						<p:selectBooleanCheckbox value="#{anotacaoMB.checkMap[item]}" />
+						<h:outputText value="#{item}" />
+						<br />
+					</ui:repeat>
+
+				</h:panelGrid>
+
+				<h:commandButton value="Atualizar" action="refresh"
+					actionListener="#{anotacaoMB.filtro()}" />
+			</h:form>
+
+			<h:outputText value="Informações da Cidade:" style="font-weight:bold" />
+
+
+			<h:form id="fsnippet">
+				<p:panelGrid columns="2" id="info">
+					<f:facet name="header">
+					</f:facet>
+
+					<h:outputText value="Cidade:" />
+					<h:outputText id="qname"
+						value="#{dbpediaMB.qName}(#{dbpediaMB.qOfficial})" />
+
+					<h:outputText value="Área" />
+					<h:outputText id="qarea" value="#{dbpediaMB.qArea}" />
+
+					<h:outputText value="População:" />
+					<h:outputText id="qpopulation" value="#{dbpediaMB.qPopulation}" />
+
+				</p:panelGrid>
+				<p:graphicImage id="qflag" url="#{dbpediaMB.qThumb}" />
+				<br />
+			</h:form>
+
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<p:gmap id="gmap" center="-20.2722883,-40.3026116" zoom="13"
+				type="HYBRID" styleClass="mapClass" model="#{anotacaoMB.markers}">
+				<p:ajax event="overlaySelect"
+					listener="#{anotacaoMB.onMarkerSelect}"
+					update=":fsnippet:qname,:fsnippet:qarea,:fsnippet:qpopulation,:fsnippet:qflag" />
+
+				<p:gmapInfoWindow id="infoWindow">
+					<p:outputPanel
+						style="text-align: justify; display: block; margin: auto; width: 200;">
+
+						<h:outputText value="#{anotacaoMB.marker.data.nome}"
+							style="font-weight:bold" />
+						<br />
+						<br />
+						<h:outputText value="#{anotacaoMB.marker.data.descricao}" />
+						<br />
+						<img src="#{anotacaoMB.marker.data.foto}" alt="foto do local"
+							height="200" width="200" />
+						<a href="#{anotacaoMB.marker.data.link}">Mais Informções</a>
+
+					</p:outputPanel>
+				</p:gmapInfoWindow>
+
+			</p:gmap>
+		</p:layoutUnit>
+	</p:layout>
+
+</h:body>
+</html>
